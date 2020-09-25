@@ -546,5 +546,34 @@ func (u *UpsertBatchBuilderImpl) PrepareUpsertBatch(tableName string, columnName
 	return batchBytes, upsertBatchBuilder.NumRows, err
 }
 
+		// Set value to the last row.
+			// compute hll value to insert
+			if column.HLLConfig.IsHLLColumn {
+				// here use original column data type to compute hll value
+				value, err = computeHLLValue(memCom.DataTypeFromString(column.Type), value)
+				if err != nil {
+					upsertBatchBuilder.RemoveRow()
+					u.logger.With("name", "PrepareUpsertBatch", "error", err.Error(), "table", tableName, "columnID", columnID, "value", value).Error("Failed to set value")
+					break
+				}
+				if err = upsertBatchBuilder.SetValue(upsertBatchBuilder.NumRows-1, upsertBatchColumnIndex, value); err != nil {
+					upsertBatchBuilder.RemoveRow()
+					u.logger.With("name", "PrepareUpsertBatch", "error", err.Error(), "table", tableName, "columnID", columnID, "value", value).Error("Failed to set value")
+					break
+				}
+			} else {
+				// directly insert value
+				if err = upsertBatchBuilder.SetValue(upsertBatchBuilder.NumRows-1, upsertBatchColumnIndex, value); err != nil {
+					upsertBatchBuilder.RemoveRow()
+					u.logger.With("name", "PrepareUpsertBatch", "error", err.Error(), "table", tableName, "columnID", columnID, "value", value).Error("Failed to set value")
+					break
+				}
+			}
+			upsertBatchColumnIndex++
+		}
+	}
 
+	batchBytes, err := upsertBatchBuilder.ToByteArray()
+	return batchBytes, upsertBatchBuilder.NumRows, err
+}
 
