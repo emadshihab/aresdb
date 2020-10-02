@@ -48,3 +48,35 @@ type Namespace interface {
 }
 
 
+
+// Namespace is aresDB database namespace
+type Namespace interface {
+	// ID returns the ID of the namespace
+	ID() string
+
+	// Tables returns the tables of the namespace.
+	Tables() ([]string, error)
+
+	// Shards returns the shard description
+	Shards() ([]m3shard.Shard, error)
+
+	// Topology return the topology description
+	Topology() topology.Topology
+}
+
+
+// Namespace is aresDB database namespace
+type Namespace interface {
+	// ID returns the ID of the namespace
+	ID() string
+
+	// Tables returns the tables of the namespace.
+	Tables() ([]string, error)
+
+	// Shards returns the shard description
+	Shards() ([]m3shard.Shard, error)
+
+	// Topology return the topology description
+	Topology() topology.Topology
+}
+
