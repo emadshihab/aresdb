@@ -141,17 +141,4 @@ func IDs(shards []shard.Shard) []uint32 {
 	return ids
 }
 
-// intRange returns a slice of all values between [from, to].
-func intRange(from, to uint32) []uint32 {
-	var ids []uint32
-	for i := from; i <= to; i++ {
-		ids = append(ids, i)
-	}
-	return ids
-}
 
-// ShardsRange returns a slice of shards for all ids between [from, to],
-// with shard state `s`.
-func ShardsRange(from, to uint32, s shard.State) []shard.Shard {
-	return NewShards(intRange(from, to), s)
-}
