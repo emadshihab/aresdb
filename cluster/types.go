@@ -47,11 +47,4 @@ type Namespace interface {
 	Topology() topology.Topology
 }
 
-// Options represents the options for storage.
-type Options interface {
-	// SetInstrumentOptions sets the instrumentation options.
-	SetInstrumentOptions(value utils.Options) Options
 
-	// InstrumentOptions returns the instrumentation options.
-	InstrumentOptions() utils.Options
-}
