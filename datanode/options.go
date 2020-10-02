@@ -68,7 +68,4 @@ func (o *options) HTTPWrappers() []utils.HTTPHandlerWrapper {
 	return o.httpWrappers
 }
 
-func (o *options) SetHTTPWrappers(wrappers []utils.HTTPHandlerWrapper) Options {
-	o.httpWrappers = wrappers
-	return o
-}
+
