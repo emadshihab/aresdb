@@ -29,8 +29,4 @@ func TestClient(t *testing.T) {
 	RunSpecsWithDefaultAndCustomReporters(t, "Ares Client Suite", []Reporter{junitReporter})
 }
 
-func TestClient(t *testing.T) {
-	RegisterFailHandler(Fail)
-	junitReporter := reporters.NewJUnitReporter("junit.xml")
-	RunSpecsWithDefaultAndCustomReporters(t, "Ares Client Suite", []Reporter{junitReporter})
-}
+
